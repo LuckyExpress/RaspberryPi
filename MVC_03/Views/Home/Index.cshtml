@@ -1,0 +1,42 @@
+﻿@{
+	
+}
+
+<style type="text/css">
+	.container { font-family: Arial, Helvetica, sans-serif; background-color: #E0E0E0; border: thick solid #C0C0C0; padding: 20px; margin: 20px; }
+</style>
+
+<div class="container">
+	<h2>iGuard Embedded WebServer on Raspberry Pi with MVC3 & SignalR 1.2.1 & Mono 3.12.1 & .Net 4</h2>
+	<input type="text" id="message" />
+	<input type="button" id="sendmessage" value="Send" />
+	<input type="hidden" id="displayname" />
+	&nbsp;My Name is&nbsp;<span id='myName'>---</span>
+	<ul id="discussion">
+	</ul>
+</div>
+
+<script src="/Scripts/jquery-1.7.1.min.js"></script>
+<script src="/Scripts/jquery.signalR-1.2.1.js"></script>
+<script src="/signalr/hubs"></script>
+<script type="text/javascript">
+	$(function () {
+		var chat = $.connection.chatHub;
+		chat.client.broadcastMessage = function (name, message) {
+			var encodedName = $('<div />').text(name).html();
+			var encodedMsg = $('<div />').text(message).html();
+			$('#discussion').append('<li><strong>' + encodedName
+				+ '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+		};
+		$('#displayname').val(prompt('Enter your name:', ''));
+		$('#myName').html($('#displayname').val());
+		$('#message').focus();
+		$.connection.hub.start().done(function () {
+			$('#sendmessage').click(function () {
+				chat.server.send($('#displayname').val(), $('#message').val());
+				$('#message').val('').focus();
+			});
+		});
+	});
+</script>
+
