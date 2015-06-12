@@ -1,0 +1,12 @@
+C:\Users\Brian\Desktop\SQLite-Providers\bin\TechInfoSystems.Data.SQLiteProvider.dll
+C:\Users\Brian\Desktop\SQLite-Providers\bin\TechInfoSystems.Data.SQLiteProvider.pdb
+C:\Users\Brian\Desktop\SQLite-Providers\bin\System.Data.SQLite.DLL
+C:\Users\Brian\Desktop\SQLite-Providers\obj\Debug\SQLiteProvider.csprojResolveAssemblyReference.cache
+C:\Users\Brian\Desktop\SQLite-Providers\obj\Debug\TechInfoSystems.Data.SQLiteProvider.dll
+C:\Users\Brian\Desktop\SQLite-Providers\obj\Debug\TechInfoSystems.Data.SQLiteProvider.pdb
+C:\Users\Brian\Documents\Visual Studio 2012\Projects\Raspberry Pi\SQLite-Providers\bin\TechInfoSystems.Data.SQLiteProvider.dll
+C:\Users\Brian\Documents\Visual Studio 2012\Projects\Raspberry Pi\SQLite-Providers\bin\TechInfoSystems.Data.SQLiteProvider.pdb
+C:\Users\Brian\Documents\Visual Studio 2012\Projects\Raspberry Pi\SQLite-Providers\bin\System.Data.SQLite.DLL
+C:\Users\Brian\Documents\Visual Studio 2012\Projects\Raspberry Pi\SQLite-Providers\obj\Debug\TechInfoSystems.Data.SQLiteProvider.dll
+C:\Users\Brian\Documents\Visual Studio 2012\Projects\Raspberry Pi\SQLite-Providers\obj\Debug\TechInfoSystems.Data.SQLiteProvider.pdb
+C:\Users\Brian\documents\visual studio 2012\Projects\Raspberry Pi\SQLite-Providers\obj\Debug\SQLiteProvider.csprojResolveAssemblyReference.cache
