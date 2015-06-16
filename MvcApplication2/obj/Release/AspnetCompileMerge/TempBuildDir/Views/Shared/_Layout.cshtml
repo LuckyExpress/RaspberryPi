@@ -1,0 +1,149 @@
+﻿@{
+	MvcApplication2.Models.LayoutModel layoutModel = ViewBag.GetLayoutModel();
+}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	@*<link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />*@
+	<script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+</head>
+<body>
+	<style type="text/css">
+		body { margin: 0px auto; padding-top: 0; width: 1000px; background-color: white; font-family: Verdana, Helvetica, Sans-Serif; font-size: 11px; overflow-y: scroll; }
+		header { margin-top: 0; width: 100%; }
+		input[type=button], input[type=reset], input[type=submit] { height: 22px; }
+		input[type=submit], input[type=button], input[type=text], input[type=password], input[type=reset] { font-family: Verdana, Helvetica, Sans-Serif; font-size: 1em; }
+		input[type=radio], input[type=checkbox] { margin: 0 3px 2px 0; padding-top: 0; padding-bottom: 0; }
+		.bannerBody { font-size: small; position: relative; height: 75px; color: White; background: transparent url(/Content/images/bannerStrip.png) repeat-x; margin-bottom: 5px; }
+		.bannerBody .leftCorner { position: absolute; bottom: 0; left: 0; width: 10px; background: url(/Content/images/leftCorner.png) no-repeat left bottom; }
+		.bannerBody .rightCorner { position: absolute; bottom: 0; right: 0; background: url(/Content/images/rightCorner.png) no-repeat right bottom; }
+		.bannerBody .title { position: absolute; top: 25px; left: 20px; font-size: 2.5em; /* padding-top: 20px; */ font-weight: bold; color: White; font-style: italic; }
+		.bannerBody .title h6 { margin-top: -48px; font-size: 0.35em; color: White; font-style: normal; text-align: right; }
+		.headerRow1 { position: absolute; right: 10px; top: 10px; }
+		.headerRow1 ul { list-style: none; margin: 0; padding: 0; }
+		.headerRow1 ul li { float: right; }
+		.headerRow1 ul li a { color: White; display: block; padding-left: 10px; text-decoration: none; font-size: 0.9em; }
+		.title a { text-decoration: none; text-shadow: 1px 1px black; }
+		.logindisplay { position: absolute; right: 10px; bottom: 5px; display: block; color: White; padding-top: 5px; text-align: right; }
+		.logindisplay a:link, .logindisplay a:visited { font-size: 1em; color: white; text-decoration: none; }
+		.logindisplay a:hover { text-decoration: underline; }
+		.footer { clear: both; padding-top: 10px; margin-bottom: 20px; }
+		.footerBody { border: 1px solid gray; padding: 6px 5px; font-size: 1em; }
+		.footerBody a { font-family: Arial Black; }
+		.footerBody img { float: right; }
+		.smallColLeft { float: left; width: 26.5%; }
+		.smallColRight { float: right; width: 26.5%; }
+		.box { position: relative; border: 1px solid Gray; margin-bottom: 10px; text-align: left; }
+		.box h2 { font-size: 1em; background-color: ThreeDDarkShadow; font-family: Verdana; font-weight: bold; color: White; margin: 0; padding: 0 8px; line-height: 22px; }
+		.boxBody { font-size: 1em; margin: 10px; }
+		.boxBody table { width: 100%; border: 0; }
+		.boxBody table tr { }
+		.boxBody table td { padding: 2px 0; border: 0; }
+		.subMenuContainer { font-size: 1.1em; padding-bottom: 2px; }
+		.subMenu { clear: both; margin: 0; padding: 0; }
+		.subMenu li { list-style: none; float: left; }
+		.subMenu li a:link, .subMenu li a:visited { display: block; text-decoration: none; margin: 0; color: Black; padding: 0 10px 0 0; border-right: 2px solid Gray; margin-right: 10px; }
+		.subMenu li a.selected { font-weight: bold; color: #8B0000; text-decoration: underline; }
+		.subMenu li:hover a { color: Red; }
+		.location { width: 200px; }
+		.subMenu li a[disabled] { color: gray; text-decoration: none; pointer-events: none; cursor: default; }
+		.subMenu li a[disabled]:hover { color: gray; cursor: default; }
+	</style>
+	<header>
+		<div class="bannerBody">
+			<div class="leftCorner">
+				&nbsp;&nbsp;&nbsp;
+			</div>
+			<div class="rightCorner">
+				&nbsp;&nbsp;&nbsp;
+			</div>
+			<div class="title">
+				<a style="color: white; font-size: 0.7em;" href="@Url.Action("", "Home")">The new&nbsp;</a><a style="color: orange;" href="@Url.Action("", "Home")">iGuard</a>
+				<h6>with built-in web server</h6>
+			</div>
+			<div class="headerRow1">
+				<ul>
+					<li><a href="/Base/culture?c=zh-CN">简体</a></li>
+					<li><a href="/Base/culture?c=zh-TW">正體</a></li>
+					<li><a href="/Base/culture?c=en-US">english</a></li>
+					<li>
+						<input type="image" title="Swap Columns" src="/Content/images/swap.gif" onclick="return toggleColumns();" />
+					</li>
+				</ul>
+			</div>
+			<div class="logindisplay">
+				@{
+					if (Request.IsAuthenticated)
+					{
+					<text>hello @layoutModel.greetingName<br />
+					@Html.ActionLink("log off", "LogOff", "Account")</text>
+					}
+					else
+					{
+					@Html.ActionLink("log in", "LogOn", "Account")
+					}
+				}
+			</div>
+			<nav>
+			</nav>
+		</div>
+		<div class="subMenuContainer">
+			@{
+				if (@ViewBag.SelectedMainMenu != "Home" || (@ViewBag.SelectedMainMenu == "Home" && Request.IsAuthenticated == true))
+				{
+				<ul class="subMenu">
+				</ul>
+					if (@ViewBag.SelectedMainMenu == "iGuard" || @ViewBag.SelectedMainMenu == "Employee" || @ViewBag.SelectedMainMenu == "Company")
+					{
+					}
+					else
+					{
+				<div class="floatRight" style="margin-top: 20px;">
+				</div>
+					}
+				}
+				else
+				{
+				<div style="padding-top: 4px;">
+				</div>
+				}
+				<div style="clear: both;">
+				</div>
+			}
+		</div>
+	</header>
+	<div id="renderBody" style="min-height: 400px;">
+		@RenderBody()
+	</div>
+	<div class="footer">
+		<div class="footerBody">
+			<img src="/Content/images/ISVLogoWhite.gif" style="height: 30px;" />
+			Copyright &copy; 1999-@DateTime.Now.Year Lucky Technology Ltd.<br />
+			<a href="http://www.lucky-tech.com">www.lucky-tech.com</a>
+		</div>
+	</div>
+	@*	<div class="page">
+		<div id="header">
+			<div id="title">
+				<h1>My MVC Application</h1>
+			</div>
+			<div id="logindisplay">
+				@Html.Partial("~/Views/Shared/_LogOnPartial.cshtml")
+			</div>
+			<div id="menucontainer">
+				<ul id="menu">
+					<li>@Html.ActionLink("Home", "Index", "Home")</li>
+					<li>@Html.ActionLink("About", "About", "Home")</li>
+				</ul>
+			</div>
+		</div>
+		<div id="main">
+			@RenderBody()
+		</div>
+		<div id="footer">
+		</div>
+	</div>*@
+</body>
+</html>

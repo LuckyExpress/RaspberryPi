@@ -1,0 +1,11 @@
+﻿@model MvcApplication2.Models.HomeModel
+@{
+}
+<div id="smallCol" class="smallColLeft">
+	@if (Request.IsAuthenticated == false)
+	{
+		<div class="box">
+			@Html.Partial("_LogOn", Model)
+		</div>
+	}
+</div>

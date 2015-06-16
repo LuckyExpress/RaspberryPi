@@ -1,0 +1,180 @@
+﻿@model MvcApplication2.Models.HomeModel
+<style type="text/css">
+	.login1 { padding-top: 10px; }
+	.login2 { float: left; width: 60%; }
+	.login2 input[type=checkbox] { padding-left: 0; }
+	#resetPassword { position: relative; }
+	#resetPasswordSpinner { position: absolute; left: 230px; top: 5px; }
+	table.loginTable td:first-child { width: 80px; }
+	table.loginTable td:first-child + td { padding-right: 3px; }
+	table.loginTable td input[type=text], input[type=password] { width: 100%; }
+</style>
+<h2>
+	@Resources.Global.AdminLogin</h2>
+<div class="boxBody">
+	<form id="logonForm" action="@Url.Action("Logon")" method="post">
+		<table class="loginTable">
+			<tr>
+				<td class='cfs'>
+					@Resources.Global.LoginName
+				</td>
+				<td>
+					<input type="text" id="logonUserName" name="logonUserName" value="@(Model == null ? "" : Model.userName)" onkeypress="return isLoginNumericKey(this, event);" tabindex="1" />
+				</td>
+			</tr>
+			<tr>
+				<td class='cfs'>
+					@Resources.Global.Password
+				</td>
+				<td>
+					<input type="password" name="logonPassword" tabindex="2" />
+				</td>
+			</tr>
+		</table>
+		<div class="login1">
+			<div class="login2">
+				<input type="checkbox" name="logonRememberMe" value="true" tabindex="3" checked />
+				<span class="cfs">@Resources.Global.RememberMe</span>
+				<br />
+				<a href="#" id="forgotPassword" tabindex="4" class="cfs">@Resources.Global.ForgotPassword</a>
+			</div>
+			<div style="float: right;">
+				<img id="logonSpinner" src="@Url.Content("~/Content/images/plswait.gif")" style="display: none; vertical-align: middle;" alt="" />&nbsp;
+				<input id="btnLogOn" type="button" name="LogOn" value="@Resources.Global.Login" tabindex="6"  />
+			</div>
+			<div style="clear: both;">
+			</div>
+		</div>
+		<div id="logonAckMsgWrapper" style="display: @(ViewBag.LogOnError == null ? "none" : "inline"); text-align: center;">
+			<p id="logonAckMsg" class="ackMsg">@ViewBag.LogOnError</p>
+		</div>
+		<div style="display: none;">
+			<input id="submitLogonForm" type="submit" value="debug" />
+		</div>
+	</form>
+	<div id="resetPasswordDialog" title="@Resources.Global.ResetYourPassword" style="display: none;">
+		<div class="alignCenter">
+			<p>
+				@Resources.Global.ResetPassword1
+			</p>
+			<p>
+				@Resources.Global.ResetPassword2
+			</p>
+			<p>
+				@Resources.Global.ResetPassword3:
+				<input class="textWidth" id="resetPasswordEmail" name="resetPasswordEmail" type="text" value="" />
+			</p>
+			<p id="resetPasswordResultMsg" class="ackMsg">
+			</p>
+			<p id="resetPassword">
+				<input type="button" id="btnResetPasswordOK" value="@Resources.Global.OK" />&nbsp;
+				<input type="button" id="btnResetPasswordCancel" value="@Resources.Global.Cancel" />
+				<img src="/Content/images/plswait.gif" id="resetPasswordSpinner" style="display: none;" alt="" />
+			</p>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(function () {
+		$('#resetPasswordDialog').dialog({ autoOpen: false, width: 350, modal: true, close: onResetPasswordDialogClose, resizable: false });
+		$('#forgotPassword').click(function () {
+			SignUpReset();
+			LogonReset();
+			$('#resetPasswordDialog input').keypress(function (event) {
+				if (event.keyCode == 13) {
+					$('#btnResetPasswordOK').click();
+				}
+			});
+			$('#resetPasswordDialog').dialog('open');
+			return false;
+		});
+		$('#btnResetPasswordOK').click(function () {
+			var resetPasswordEmail = $('#resetPasswordEmail').val();
+			if (!resetPasswordEmail) {
+				$('#resetPasswordResultMsg').html('@(Resources.Global.InvalidInput)');
+				$('#resetPasswordEmail').focus();
+			}
+			else {
+				$('#resetPasswordSpinner').show();
+				var data = { resetPasswordEmail: resetPasswordEmail }
+				$.ajax({
+					cache: false,
+					data: data,
+					url: '@Url.Action("ResetPassword")',
+					type: 'POST',
+					complete: function () { },
+					success: function (json) {
+						$('#resetPasswordResultMsg').html(json.resultMsg);
+						$('#resetPasswordSpinner').hide();
+						if (json.result == true) {
+							$('#btnResetPasswordOK').hide();
+							$('#btnResetPasswordCancel').val("@Resources.Global.Return");
+							$('#resetPasswordDialog input').keypress(function (event) {
+								if (event.keyCode == 13) {
+									$('#btnResetPasswordCancel').click();
+								}
+							});
+						}
+						else {
+							$('#resetPasswordEmail').focus();
+						}
+					}
+				});
+			}
+			return false;
+		});
+		$('#btnResetPasswordCancel').click(function () {
+			$('#resetPasswordDialog').dialog('close');
+			return false;
+		});
+		$('#btnLogOn').click(function () {
+			SignUpReset();
+			var UserName = $('input[name=logonUserName]').val();
+			var Password = $('input[name=logonPassword]').val();
+			if (!UserName || !Password) {
+				$('#logonAckMsg').html('@(Resources.Global.InvalidInput)');
+				$('#logonAckMsgWrapper').show();
+				$('input[name=logonUserName]').focus();
+			}
+			else {
+				$('#logonSpinner').show();
+				$('#submitLogonForm').click();	// some IE won't like form.submit()
+			}
+			return false;
+		});
+		$('#logonForm input').keypress(function (event) {
+			if (event.keyCode == 13) {
+				$('#btnLogOn').click();
+				return false;
+			}
+		});
+	});
+	function onResetPasswordDialogClose() {
+		$('#resetPasswordResultMsg').empty();
+		$('#resetPasswordEmail').val("");
+		$('#btnResetPasswordCancel').val("@Resources.Global.Cancel");
+		$('#btnResetPasswordOK').show();
+		$('#resetPasswordSpinner').hide();
+		myFocus();
+	}
+	function LogonReset() {
+		$('#logonAckMsg').empty();
+		$('#logonAckMsgWrapper').hide();
+	}
+
+	function isLoginNumericKey(ctrl, e) {
+		var ret;
+		var c = e.which || e.keyCode;
+
+		if ((c >= 48 && c <= 57) || c == 8 || c == 9 || c == 46 || c == 64 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 45 || c == 95) ret = true;
+		else {
+			ret = false;
+			ctrl.style.borderColor = 'red'; setTimeout(function () { ctrl.style.borderColor = ''; }, 100);
+		}
+		return ret;
+	}
+	function SignUpReset() {
+		$('table.loginTable input').css('border-color', '').css('border-style', '');
+		$('#signUpAckMsgWrapper').hide();
+	}
+</script>
