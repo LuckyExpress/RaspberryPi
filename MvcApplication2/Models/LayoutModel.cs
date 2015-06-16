@@ -9,5 +9,6 @@ namespace MvcApplication2.Models
 	{
 		public string greetingName { get; set; }
 		public string controller { get; set; }
+		public string theme { get; set; }
 	}
 }

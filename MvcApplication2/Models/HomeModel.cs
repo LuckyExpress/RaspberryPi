@@ -8,5 +8,7 @@ namespace MvcApplication2.Models
 	public class HomeModel
 	{
 		public string userName { get; set; }
+		public List<string> themeList { get; set; }
+		public string currentTheme { get; set; }
 	}
 }

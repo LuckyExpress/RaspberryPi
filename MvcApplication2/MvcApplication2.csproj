@@ -101,6 +101,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Global.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="App_GlobalResources\Global.zh-CN.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Global.zh-CN.resx</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="App_GlobalResources\Global.zh-TW.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Global.zh-TW.resx</DependentUpon>
     </Compile>
     <Compile Include="BLL\BaseServices.cs" />
     <Compile Include="BLL\HomeServices.cs" />
@@ -113,6 +125,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Models\LayoutModel.cs" />
+    <Compile Include="MyBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLiteMembershipProvider.cs" />
     <Compile Include="SQLiteProfileProvider.cs" />
@@ -121,10 +134,14 @@
   <ItemGroup>
     <Content Include="Content\bannerStrip.png" />
     <Content Include="Content\images\bannerStrip.png" />
+    <Content Include="Content\images\down.png" />
+    <Content Include="Content\images\favicon.ico" />
     <Content Include="Content\images\ISVLogoWhite.gif" />
     <Content Include="Content\images\leftCorner.png" />
+    <Content Include="Content\images\plswait.gif" />
     <Content Include="Content\images\rightCorner.png" />
     <Content Include="Content\images\swap.gif" />
+    <Content Include="Content\images\up.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -179,8 +196,49 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\Site_Original.css" />
+    <Content Include="Content\themes\MyThemes\Aquamarine\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Aquamarine\Site.css" />
+    <Content Include="Content\themes\MyThemes\Black\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Black\Site.css" />
+    <Content Include="Content\themes\MyThemes\Blue\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Blue\Site.css" />
+    <Content Include="Content\themes\MyThemes\Cadet Blue\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Cadet Blue\Site.css" />
+    <Content Include="Content\themes\MyThemes\Dark Blue\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Dark Blue\Site.css" />
+    <Content Include="Content\themes\MyThemes\Deep Pink\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Deep Pink\Site.css" />
+    <Content Include="Content\themes\MyThemes\Green\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Green\Site.css" />
+    <Content Include="Content\themes\MyThemes\Indigo\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Indigo\Site.css" />
+    <Content Include="Content\themes\MyThemes\Khaki\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Khaki\Site.css" />
+    <Content Include="Content\themes\MyThemes\Maroon\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Maroon\Site.css" />
+    <Content Include="Content\themes\MyThemes\Orange Red\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Orange Red\Site.css" />
+    <Content Include="Content\themes\MyThemes\Salmon\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Salmon\Site.css" />
+    <Content Include="Content\themes\MyThemes\Sky Blue\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Sky Blue\Site.css" />
+    <Content Include="Content\themes\MyThemes\Turquoise\bannerStrip.png" />
+    <Content Include="Content\themes\MyThemes\Turquoise\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="App_Data\app_data.sqlite" />
+    <Content Include="App_GlobalResources\Global.zh-CN.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Global.zh-CN.designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\themes\MyThemes\Aquamarine\Thumbs.db" />
+    <Content Include="Content\themes\MyThemes\Black\Thumbs.db" />
+    <Content Include="Content\themes\MyThemes\Blue\Thumbs.db" />
+    <Content Include="Content\themes\MyThemes\Cadet Blue\Thumbs.db" />
+    <Content Include="Content\themes\MyThemes\Dark Blue\Thumbs.db" />
+    <Content Include="Content\themes\MyThemes\Deep Pink\Thumbs.db" />
+    <Content Include="Content\themes\MyThemes\Green\Thumbs.db" />
     <None Include="Properties\PublishProfiles\www folder in desktop.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -191,7 +249,10 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\MyScripts\igpScripts.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -221,6 +282,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Home\_LogOn.cshtml" />
+    <Content Include="Views\Home\_ThemeColor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HAL\" />
@@ -232,6 +294,13 @@
     <Content Include="App_GlobalResources\Global.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Global.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\Global.zh-TW.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>Global.zh-TW.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <PropertyGroup>

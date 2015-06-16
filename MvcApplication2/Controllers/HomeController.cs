@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.SqlClient;
+using System.Web.Security;
+using MvcApplication2.Models;
 
 namespace MvcApplication2.Controllers
 {
@@ -14,8 +16,53 @@ namespace MvcApplication2.Controllers
 
 		public ActionResult Index()
 		{
-			ViewBag.Message = "Welcome to ASP.NET MVC!";
-			return View();
+			HomeModel model = services.GetHomeModel();
+			return View(model);
+		}
+
+		/// <summary>
+		/// add box to let user change theme color quickly (140212)
+		/// </summary>
+		[HttpPost]
+		public ActionResult ThemeColor(string themeColor)
+		{
+			services.UpdateThemeColor(HttpContext.User.Identity.Name, themeColor);
+			return Json(new { isError = "false" }, JsonRequestBehavior.AllowGet);
+		}
+
+		[HttpPost]
+		public ActionResult Logon(string logonUserName, string logonPassword, string logonRememberMe, string returnUrl)
+		{
+			if (Membership.ValidateUser(logonUserName, logonPassword))
+			{
+				bool rememberMe = false;
+				if (logonRememberMe == "true") rememberMe = true;
+
+				// to make sure the name is exactly like the UserName (ie, change 'Brian' to 'brian') (150330)
+				MembershipUser membershipUser = Membership.GetUser(logonUserName);
+				logonUserName = membershipUser.UserName;
+
+				// ref: http://stackoverflow.com/questions/682788/making-user-login-persistant-with-asp-net-membership (140513)
+				FormsAuthentication.SetAuthCookie(logonUserName, rememberMe);
+
+				if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
+				{
+					return Redirect(returnUrl);
+				}
+				else
+				{
+					TempData["justLogonName"] = logonUserName;
+					return RedirectToAction("Index", "Home");
+				}
+			}
+			else
+			{
+				ViewBag.LogOnError = @Resources.Global.UserNamePasswordIncorrect;
+			}
+
+			// if we got this far, something failed, redisplay form
+			HomeModel model = services.GetHomeModel();
+			return View("Index", model);
 		}
 
 		public ActionResult About()

@@ -6,20 +6,32 @@ using System.Web;
 
 namespace MvcApplication2.BLL
 {
-	public class BaseServices
+	public class BaseServices : MyBase
 	{
-		public LayoutModel GetLayoutModel()
+		public LayoutModel GetLayoutModel(string selectedMainMenu)
 		{
-			LayoutModel model = new LayoutModel();
+			LayoutModel n = new LayoutModel();
+			dynamic profile;
 
 			if (HttpContext.Current.Request.IsAuthenticated == true)
 			{
-				model.greetingName = HttpContext.Current.User.Identity.Name;
+				n.greetingName = HttpContext.Current.User.Identity.Name;
+
+				// profile could have been saved in GetHomeModel() (140213)
+				profile = System.Web.HttpContext.Current.Items["currentProfile"];
+				if (profile == null) profile = System.Web.Profile.ProfileBase.Create(HttpContext.Current.User.Identity.Name);
+
+				n.theme = profile.Preferences.Theme;
+				if (string.IsNullOrEmpty(n.theme) == true) n.theme = "Aquamarine";
+			}
+			else
+			{
+				n.theme = "Black";
 			}
 
-			model.controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+			n.controller = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
 
-			return model;
+			return n;
 		}
 	}
 }

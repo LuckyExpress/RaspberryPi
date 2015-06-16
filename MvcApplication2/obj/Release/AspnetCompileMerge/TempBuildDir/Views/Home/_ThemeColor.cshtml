@@ -1,0 +1,56 @@
+﻿@model MvcApplication2.Models.HomeModel
+@if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name != "en-US")
+{
+	<style type="text/css">
+		.themeColorMsg { font-size: 1.2em; }
+	</style>
+}
+<h2>@Resources.Global.ThemeColor</h2>
+<a id="hideThemeColor" class="boxHide" href="Index">
+	<img src='/Content/images/up.png' alt="" /><img src='/Content/images/down.png' style="display: none;" alt="" /></a>
+<div class="boxBody">
+	<span class="themeColorMsg">@Resources.Global.SelectThemeColorFromList:</span>
+	<p>
+		<span class="themeColorMsg" style="display: inline-block; margin-right: 5px;">@Resources.Global.ThemeColor:</span>
+		<select id="selectThemeColor" name="newThemeColor" style="width: 110px; margin-bottom: 2px;" @((Model.themeList == null || Model.themeList.Count == 0) ? "disabled" : "")>
+			@if (Model.themeList == null || Model.themeList.Count == 0)
+			{
+				<option value="Error">Error</option>
+			}
+			else
+			{
+				foreach (string s1 in Model.themeList)
+				{
+				<option value="@s1" @(s1 == Model.currentTheme ? "selected" : "")>@s1</option>
+				}
+			}
+		</select>
+		&nbsp;<img src="/Content/images/plswait.gif" alt="" id="selectThemeColorSpinner" style="vertical-align: middle; display: none;" />
+		<br />
+	</p>
+</div>
+<script type="text/javascript">
+	$(function () {
+		$('#selectThemeColor').change(function () {
+			$('#selectThemeColorSpinner').show();
+			var themeColor = $(this).val();
+			$.ajax({
+				url: '@Url.Action("ThemeColor")',
+				type: 'Post',
+				data: { themeColor: themeColor },
+				success: function (result) {
+					$('#selectThemeColorSpinner').hide();
+					$("head").append("<link>");
+					var css = $("head").children(":last");
+					css.attr({
+						rel: "stylesheet",
+						type: "text/css",
+						href: '@Url.Content("~/Content/themes/MyThemes/")' + themeColor + '/Site.css'
+					});
+				}
+			});
+			return false;
+		});
+	});
+</script>
+

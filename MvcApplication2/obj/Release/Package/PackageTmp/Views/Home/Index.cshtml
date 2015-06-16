@@ -8,4 +8,10 @@
 			@Html.Partial("_LogOn", Model)
 		</div>
 	}
+	@if (Request.IsAuthenticated == true)
+	{
+		<div class="box">
+			@Html.Partial("_ThemeColor", Model)
+		</div>
+	}
 </div>

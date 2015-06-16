@@ -159,4 +159,13 @@
   <data name="Return" xml:space="preserve">
     <value>Return</value>
   </data>
+  <data name="SelectThemeColorFromList" xml:space="preserve">
+    <value>Select a new Theme Color from the following list</value>
+  </data>
+  <data name="ThemeColor" xml:space="preserve">
+    <value>Theme Color</value>
+  </data>
+  <data name="UserNamePasswordIncorrect" xml:space="preserve">
+    <value>The user name or password provided is incorrect.</value>
+  </data>
 </root>

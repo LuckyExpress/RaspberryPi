@@ -1,0 +1,7 @@
+﻿.bannerBody {
+	background: transparent url(bannerStrip.png) repeat-x;
+}
+
+.box h2, .ui-widget-header {
+	background-color: #4c4c65;
+}

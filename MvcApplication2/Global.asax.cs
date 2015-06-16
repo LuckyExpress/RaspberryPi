@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Globalization;
 // using System.Data.Entity.Infrastructure;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -54,6 +56,24 @@ namespace MvcApplication2
 
 			RegisterGlobalFilters(GlobalFilters.Filters);
 			RegisterRoutes(RouteTable.Routes);
+		}
+
+		protected void Application_AcquireRequestState(object sender, EventArgs e)
+		{
+			string currentCulture = "en-US";
+
+			if (HttpContext.Current.Request != null)
+			{
+				HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies["PreferedCulture"];
+				if (cookie != null && cookie.Value != null) currentCulture = cookie.Value;
+
+				// set the current culture (120706)
+				CultureInfo ci = new CultureInfo(currentCulture);
+				Thread.CurrentThread.CurrentUICulture = ci;
+				Thread.CurrentThread.CurrentCulture = CultureInfo.CreateSpecificCulture(ci.Name);
+			}
+
+			bool a = HttpContext.Current.Request.IsAuthenticated;
 		}
 	}
 }

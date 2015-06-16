@@ -12,7 +12,7 @@
 <h2>
 	@Resources.Global.AdminLogin</h2>
 <div class="boxBody">
-	<form id="logonForm" action="@Url.Action("Logon")" method="post">
+	<form id="logonForm" action="/Home/Logon" method="post">
 		<table class="loginTable">
 			<tr>
 				<td class='cfs'>
@@ -76,57 +76,6 @@
 </div>
 <script type="text/javascript">
 	$(function () {
-		$('#resetPasswordDialog').dialog({ autoOpen: false, width: 350, modal: true, close: onResetPasswordDialogClose, resizable: false });
-		$('#forgotPassword').click(function () {
-			SignUpReset();
-			LogonReset();
-			$('#resetPasswordDialog input').keypress(function (event) {
-				if (event.keyCode == 13) {
-					$('#btnResetPasswordOK').click();
-				}
-			});
-			$('#resetPasswordDialog').dialog('open');
-			return false;
-		});
-		$('#btnResetPasswordOK').click(function () {
-			var resetPasswordEmail = $('#resetPasswordEmail').val();
-			if (!resetPasswordEmail) {
-				$('#resetPasswordResultMsg').html('@(Resources.Global.InvalidInput)');
-				$('#resetPasswordEmail').focus();
-			}
-			else {
-				$('#resetPasswordSpinner').show();
-				var data = { resetPasswordEmail: resetPasswordEmail }
-				$.ajax({
-					cache: false,
-					data: data,
-					url: '@Url.Action("ResetPassword")',
-					type: 'POST',
-					complete: function () { },
-					success: function (json) {
-						$('#resetPasswordResultMsg').html(json.resultMsg);
-						$('#resetPasswordSpinner').hide();
-						if (json.result == true) {
-							$('#btnResetPasswordOK').hide();
-							$('#btnResetPasswordCancel').val("@Resources.Global.Return");
-							$('#resetPasswordDialog input').keypress(function (event) {
-								if (event.keyCode == 13) {
-									$('#btnResetPasswordCancel').click();
-								}
-							});
-						}
-						else {
-							$('#resetPasswordEmail').focus();
-						}
-					}
-				});
-			}
-			return false;
-		});
-		$('#btnResetPasswordCancel').click(function () {
-			$('#resetPasswordDialog').dialog('close');
-			return false;
-		});
 		$('#btnLogOn').click(function () {
 			SignUpReset();
 			var UserName = $('input[name=logonUserName]').val();
@@ -142,37 +91,7 @@
 			}
 			return false;
 		});
-		$('#logonForm input').keypress(function (event) {
-			if (event.keyCode == 13) {
-				$('#btnLogOn').click();
-				return false;
-			}
-		});
 	});
-	function onResetPasswordDialogClose() {
-		$('#resetPasswordResultMsg').empty();
-		$('#resetPasswordEmail').val("");
-		$('#btnResetPasswordCancel').val("@Resources.Global.Cancel");
-		$('#btnResetPasswordOK').show();
-		$('#resetPasswordSpinner').hide();
-		myFocus();
-	}
-	function LogonReset() {
-		$('#logonAckMsg').empty();
-		$('#logonAckMsgWrapper').hide();
-	}
-
-	function isLoginNumericKey(ctrl, e) {
-		var ret;
-		var c = e.which || e.keyCode;
-
-		if ((c >= 48 && c <= 57) || c == 8 || c == 9 || c == 46 || c == 64 || (c >= 65 && c <= 90) || (c >= 97 && c <= 122) || c == 45 || c == 95) ret = true;
-		else {
-			ret = false;
-			ctrl.style.borderColor = 'red'; setTimeout(function () { ctrl.style.borderColor = ''; }, 100);
-		}
-		return ret;
-	}
 	function SignUpReset() {
 		$('table.loginTable input').css('border-color', '').css('border-style', '');
 		$('#signUpAckMsgWrapper').hide();

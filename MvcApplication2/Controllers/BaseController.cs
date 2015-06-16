@@ -18,7 +18,7 @@ namespace MvcApplication2.Controllers
 
 		public LayoutModel GetLayoutModel()
 		{
-			return baseServices.GetLayoutModel();
+			return baseServices.GetLayoutModel(ViewBag.SelectedMainMenu);
 		}
 
 		/// <summary>
