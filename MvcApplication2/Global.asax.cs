@@ -49,6 +49,8 @@ namespace MvcApplication2
 			ViewEngines.Engines.Clear();
 			ViewEngines.Engines.Add(new MonoRazorViewEngine());
 
+			RouteTable.Routes.MapHubs();
+
 			AreaRegistration.RegisterAllAreas();
 
 			// Use LocalDB for Entity Framework by default

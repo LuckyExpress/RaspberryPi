@@ -79,6 +79,51 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string Confirm {
+            get {
+                return ResourceManager.GetString("Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Email.
+        /// </summary>
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Duplicated Name!.
+        /// </summary>
+        internal static string ErrorDuplicatedName {
+            get {
+                return ResourceManager.GetString("ErrorDuplicatedName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Email already used by another member!.
+        /// </summary>
+        internal static string ErrorEmailAlreadyUsed {
+            get {
+                return ResourceManager.GetString("ErrorEmailAlreadyUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Unknown Error!.
+        /// </summary>
+        internal static string ErrorUnknown {
+            get {
+                return ResourceManager.GetString("ErrorUnknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I forgot my password.
         /// </summary>
         internal static string ForgotPassword {
@@ -129,6 +174,24 @@ namespace Resources {
         internal static string Password {
             get {
                 return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password must be at least 6 characters long..
+        /// </summary>
+        internal static string PasswordLengthError {
+            get {
+                return ResourceManager.GetString("PasswordLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Passwords do not match!.
+        /// </summary>
+        internal static string PasswordMatchError {
+            get {
+                return ResourceManager.GetString("PasswordMatchError", resourceCulture);
             }
         }
         
@@ -192,6 +255,24 @@ namespace Resources {
         internal static string SelectThemeColorFromList {
             get {
                 return ResourceManager.GetString("SelectThemeColorFromList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up.
+        /// </summary>
+        internal static string SignUp {
+            get {
+                return ResourceManager.GetString("SignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thank you for Signing Up.
+        /// </summary>
+        internal static string ThankYouForSigningUp1 {
+            get {
+                return ResourceManager.GetString("ThankYouForSigningUp1", resourceCulture);
             }
         }
         

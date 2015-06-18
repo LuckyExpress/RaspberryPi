@@ -3,15 +3,35 @@
 }
 <div id="smallCol" class="smallColLeft">
 	@if (Request.IsAuthenticated == false)
-	{
+ {
 		<div class="box">
 			@Html.Partial("_LogOn", Model)
 		</div>
-	}
+		<div class="box">
+			@Html.Partial("_SignUp", Model)
+		</div>
+ }
 	@if (Request.IsAuthenticated == true)
-	{
+ {
 		<div class="box">
 			@Html.Partial("_ThemeColor", Model)
 		</div>
-	}
+ }
 </div>
+<div id="bigCol" class="bigColRight">
+	<div class="box">
+		@Html.Partial("_SignalRTest", Model)
+	</div>
+	<div class="box">
+		@Html.Partial("_SqlServerTest", Model)
+	</div>
+	<div class="box">
+		@Html.Partial("_GPIOTest", Model)
+	</div>
+</div>
+<script type="text/javascript">
+	function HomeReset() {
+		$('table.loginTable input').css('border-color', '').css('border-style', '');
+		$('#signUpAckMsgWrapper').hide();
+	}
+</script>

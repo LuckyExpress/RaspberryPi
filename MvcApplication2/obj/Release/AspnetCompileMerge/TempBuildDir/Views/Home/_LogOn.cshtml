@@ -1,10 +1,10 @@
 ﻿@model MvcApplication2.Models.HomeModel
 <style type="text/css">
-	.login1 { padding-top: 10px; }
-	.login2 { float: left; width: 60%; }
-	.login2 input[type=checkbox] { padding-left: 0; }
-	#resetPassword { position: relative; }
-	#resetPasswordSpinner { position: absolute; left: 230px; top: 5px; }
+	#logonForm .login1 { padding-top: 10px; }
+	#logonForm .login2 { float: left; width: 60%; }
+	#logonForm .login2 input[type=checkbox] { padding-left: 0; }
+	#logonForm #resetPassword { position: relative; }
+	#logonForm #resetPasswordSpinner { position: absolute; left: 230px; top: 5px; }
 	table.loginTable td:first-child { width: 80px; }
 	table.loginTable td:first-child + td { padding-right: 3px; }
 	table.loginTable td input[type=text], input[type=password] { width: 100%; }
@@ -19,7 +19,7 @@
 					@Resources.Global.LoginName
 				</td>
 				<td>
-					<input type="text" id="logonUserName" name="logonUserName" value="@(Model == null ? "" : Model.userName)" onkeypress="return isLoginNumericKey(this, event);" tabindex="1" />
+					<input type="text" id="logonUserName" name="logonUserName" value="@(Model == null ? "" : Model.userName)" onkeypress="return isLoginNumericKey(this, event);" />
 				</td>
 			</tr>
 			<tr>
@@ -27,20 +27,20 @@
 					@Resources.Global.Password
 				</td>
 				<td>
-					<input type="password" name="logonPassword" tabindex="2" />
+					<input type="password" name="logonPassword" />
 				</td>
 			</tr>
 		</table>
 		<div class="login1">
 			<div class="login2">
-				<input type="checkbox" name="logonRememberMe" value="true" tabindex="3" checked />
+				<input type="checkbox" name="logonRememberMe" value="true" checked />
 				<span class="cfs">@Resources.Global.RememberMe</span>
 				<br />
-				<a href="#" id="forgotPassword" tabindex="4" class="cfs">@Resources.Global.ForgotPassword</a>
+				<a href="#" id="forgotPassword" class="cfs">@Resources.Global.ForgotPassword</a>
 			</div>
 			<div style="float: right;">
 				<img id="logonSpinner" src="@Url.Content("~/Content/images/plswait.gif")" style="display: none; vertical-align: middle;" alt="" />&nbsp;
-				<input id="btnLogOn" type="button" name="LogOn" value="@Resources.Global.Login" tabindex="6"  />
+				<input id="btnLogOn" type="button" name="LogOn" value="@Resources.Global.Login" />
 			</div>
 			<div style="clear: both;">
 			</div>
@@ -53,7 +53,7 @@
 		</div>
 	</form>
 	<div id="resetPasswordDialog" title="@Resources.Global.ResetYourPassword" style="display: none;">
-		<div class="alignCenter">
+		<div style="text-align: center;">
 			<p>
 				@Resources.Global.ResetPassword1
 			</p>
@@ -76,8 +76,8 @@
 </div>
 <script type="text/javascript">
 	$(function () {
-		$('#btnLogOn').click(function () {
-			SignUpReset();
+		$('#logonForm #btnLogOn').click(function () {
+			HomeReset();
 			var UserName = $('input[name=logonUserName]').val();
 			var Password = $('input[name=logonPassword]').val();
 			if (!UserName || !Password) {
@@ -91,9 +91,15 @@
 			}
 			return false;
 		});
+		$('#logonForm input').keypress(function (event) {
+			if (event.keyCode == 13) {
+				$('#submitLogonForm').click();
+				return false;
+			}
+		});
 	});
-	function SignUpReset() {
-		$('table.loginTable input').css('border-color', '').css('border-style', '');
-		$('#signUpAckMsgWrapper').hide();
+	function LogonReset() {
+		$('#logonAckMsg').empty();
+		$('#logonAckMsgWrapper').hide();
 	}
 </script>

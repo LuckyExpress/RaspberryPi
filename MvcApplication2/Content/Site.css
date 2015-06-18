@@ -23,6 +23,8 @@ input[type=radio], input[type=checkbox] { margin: 0 3px 2px 0; padding-top: 0; p
 .footerBody img { float: right; }
 .smallColLeft { float: left; width: 26.5%; }
 .smallColRight { float: right; width: 26.5%; }
+.bigColLeft { float: left; width: 72.5%; }
+.bigColRight { float: right; width: 72.5%; }
 .box { position: relative; border: 1px solid Gray; margin-bottom: 10px; text-align: left; }
 .box h2 { font-size: 1em; background-color: ThreeDDarkShadow; font-family: Verdana; font-weight: bold; color: White; margin: 0; padding: 0 8px; line-height: 22px; }
 .boxBody { font-size: 1em; margin: 10px; }
@@ -41,3 +43,4 @@ input[type=radio], input[type=checkbox] { margin: 0 3px 2px 0; padding-top: 0; p
 .opaque { opacity: 0.75; filter: alpha(opacity=75); }
 .boxHide { background-color: Transparent; position: absolute; top: 4px; right: 10px; color: White; }
 .boxHide img { border: none; vertical-align: bottom; }
+.tinyBlue { font-size: 0.8em; color: Blue; }

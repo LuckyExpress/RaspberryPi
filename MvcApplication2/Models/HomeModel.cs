@@ -10,5 +10,7 @@ namespace MvcApplication2.Models
 		public string userName { get; set; }
 		public List<string> themeList { get; set; }
 		public string currentTheme { get; set; }
+		public string sqlServerConnectionString { get; set; }
+		public string sqlCommand { get; set; }
 	}
 }

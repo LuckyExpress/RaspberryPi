@@ -1,0 +1,66 @@
+﻿@model MvcApplication2.Models.HomeModel
+<style type="text/css">
+	#divSqlServerTest .c1 { display: inline-block; width: 105px; }
+</style>
+<h2>* SQLServer Test *</h2>
+<a id="hideSqlServerTest" class="boxHide" href="Index">
+	<img src='/Content/images/up.png' alt="" /><img src='/Content/images/down.png' style="display: none;" alt="" /></a>
+<div id="divSqlServerTest" class="boxBody">
+	<p>
+		<span class="c1">ConnectionString:</span>
+		<input type="text" id="txtConnectionString" style="width: 550px;" value="@Model.sqlServerConnectionString" />
+	</p>
+	<p>
+		<span class="c1">SQL Command:</span>
+		<input type="text" id="txtSqlCommand" style="width: 500px;" value="@Model.sqlCommand" />&nbsp;
+		<input type="button" id="btnSqlServerTest" value="GO" />&nbsp;
+		<img id="sqlServerTestSpinner" src="/Content/images/plswait.gif" style="display: none; vertical-align: middle;" alt="" />
+	</p>
+	<p>
+		<span class="c1">Result:</span>
+		<span id="sqlServerTestResult">---</span>
+	</p>
+</div>
+@if (Request.IsAuthenticated == true)
+{
+	<script type="text/javascript">
+		$(function () {
+			$('#btnSqlServerTest').click(function () {
+				$('#sqlServerTestSpinner').show();
+				var sqlConnectionString = $('#txtConnectionString').val();
+				var sqlCommand = $('#txtSqlCommand').val();
+				var data = { sqlConnectionString: sqlConnectionString, sqlCommand: sqlCommand }
+				$.ajax({
+					cache: false,
+					data: data,
+					url: '@Url.Action("SqlServerTest")',
+					type: 'POST',
+					complete: function () { },
+					success: function (json) {
+						$('#sqlServerTestSpinner').hide();
+						$('#sqlServerTestResult').html(json.result);
+					}
+				});
+				return false;
+			});
+		});
+	</script>
+}
+else
+{
+	<script>
+		$(function () {
+			$('#btnSqlServerTest').click(function () {
+				$('#sqlServerTestResult').html('Please Login First!');
+			});
+		});
+	</script>
+}
+<script type="text/javascript">
+	$('#divSqlServerTest input').keypress(function (event) {
+		if (event.keyCode == 13) {
+			$('#btnSqlServerTest').click();
+			return false;
+		}
+	});
+</script>

@@ -123,6 +123,21 @@
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="ErrorDuplicatedName" xml:space="preserve">
+    <value>Error: Duplicated Name!</value>
+  </data>
+  <data name="ErrorEmailAlreadyUsed" xml:space="preserve">
+    <value>Error: Email already used by another member!</value>
+  </data>
+  <data name="ErrorUnknown" xml:space="preserve">
+    <value>Error: Unknown Error!</value>
+  </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>I forgot my password</value>
   </data>
@@ -140,6 +155,12 @@
   </data>
   <data name="Password" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="PasswordLengthError" xml:space="preserve">
+    <value>The password must be at least 6 characters long.</value>
+  </data>
+  <data name="PasswordMatchError" xml:space="preserve">
+    <value>Passwords do not match!</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>Remember me?</value>
@@ -161,6 +182,12 @@
   </data>
   <data name="SelectThemeColorFromList" xml:space="preserve">
     <value>Select a new Theme Color from the following list</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>Sign Up</value>
+  </data>
+  <data name="ThankYouForSigningUp1" xml:space="preserve">
+    <value>Thank you for Signing Up</value>
   </data>
   <data name="ThemeColor" xml:space="preserve">
     <value>Theme Color</value>

@@ -1,0 +1,118 @@
+﻿@{
+}
+<style type="text/css">
+	#signUp .signUp { padding-top: 10px; }
+	#signUpTable input[type=password] { width: 72%; }
+</style>
+<h2>* @Resources.Global.SignUp *</h2>
+<form action="/Home/SignUp" id="signUp" class="boxBody">
+	<table id="signUpTable" class="loginTable">
+		<tr>
+			<td class="cfs">
+				<span>@Resources.Global.LoginName</span>
+			</td>
+			<td class="alignRight">
+				<input type="text" name="UserName" onkeypress="return isAlphaNumericKey(this, event);" />
+			</td>
+		</tr>
+		<tr>
+			<td class="cfs">
+				<span>@Resources.Global.Email</span>
+			</td>
+			<td style="text-align: right;">
+				<input type="text" name="UserEmail" />
+			</td>
+		</tr>
+		<tr>
+			<td class="cfs">
+				@Resources.Global.Password
+			</td>
+			<td>
+				<input type="password" name="Password" autocomplete="off" title="min 6 chars." onkeypress="return isAlphaNumericKey(this, event);" />&nbsp;<span class="tinyBlue">min.6</span>
+			</td>
+		</tr>
+		<tr>
+			<td class="cfs">
+				@Resources.Global.Confirm
+			</td>
+			<td>
+				<input type="password" name="ConfirmPassword" autocomplete="off" />&nbsp;<span class="tinyBlue">min.6</span>
+			</td>
+		</tr>
+	</table>
+	<div class="signUp">
+		<input id="btnSignUp" type="button" name="SignUp" value='@Resources.Global.SignUp' />&nbsp;
+		<img id="signUpSpinner" src="@Url.Content("~/Content/images/plswait.gif")" style="display: none; vertical-align: middle;" alt="" />
+		<span id="signUpAckMsg" class="ackMsg cfs"></span>
+	</div>
+</form>
+<script type="text/javascript">
+	var result = false;
+	var errorCode;
+	$(function () {
+		$('#signUp input[type=text], #signUp input[type=password]').focus(function () {
+			$(this).css('border-color', '').css('border-style', '');
+		});
+		$('#btnSignUp').click(function () {
+			LogonReset();
+			$('table.loginTable input').css('border-color', '').css('border-style', '');
+			var isOK = true;
+			var errorMsg = "";
+			errorCode = undefined;
+			var textboxes = [$('input[name=UserName]'), $('input[name=UserEmail]'), $('input[name=Password]'), $('input[name=ConfirmPassword]')];
+			for (i = 0; i < textboxes.length; i++) {
+				textboxes[i].val($.trim(textboxes[i].val()));
+				var textbox = textboxes[i];
+				var isError = false;
+				if (textbox.val() == "") { isError = true; if (errorMsg == '') errorMsg = '@Resources.Global.InvalidInput'; }
+				else if (i == 0 && ((textbox.val().indexOf(" ") > -1) || (textbox.val().length > 15))) { isError = true; if (errorMsg == '') errorMsg = '@Resources.Global.InvalidInput'; }
+				else if (i == 1 && (!/^([a-zA-Z0-9_\.\-])+\@@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(textbox.val()))) { isError = true; if (errorMsg == '') errorMsg = 'Invalid Email!'; }
+				else if ((i == 2) && (textbox.val().length < 6)) { isError = true; if (errorMsg == '') errorMsg = '@Resources.Global.PasswordLengthError'; }
+				else if ((i == 3) && (textbox.val() != textboxes[2].val())) { isError = true; if (errorMsg == '') errorMsg = '@Resources.Global.PasswordMatchError'; }
+				if (isError) {
+					isOK = false;
+					if (errorCode == undefined) errorCode = i;
+					textbox.css('border-color', 'indianred').css('border-style', 'solid');
+				}
+			}
+			if (isOK) {
+				$('#signUpAckMsg').empty();
+				$('#signUpSpinner').show();
+				var UserName = $('input[name=UserName]').val();
+				var UserEmail = $('input[name=UserEmail]').val();
+				var Password = $('input[name=Password]').val();
+				var ConfirmPassword = $('input[name=ConfirmPassword]').val();
+				var data = { UserName: UserName, UserEmail: UserEmail, Password: Password, ConfirmPassword: ConfirmPassword }
+				$.ajax({
+					cache: false,
+					data: data,
+					url: '@Url.Action("SignUp")',
+					type: 'POST',
+					complete: function () { },
+					success: function (json) {
+						$('#signUpSpinner').hide();
+						if (json.result == true) {
+							alert(json.resultMsg);
+							window.location.replace('@Url.Action("Index", "Home")');
+						}
+						else {
+							$('#signUpAckMsg').html(json.resultMsg);
+						}
+					}
+				});
+				return false;
+			}
+			else {
+				$('#signUpAckMsg').html(errorMsg);
+			}
+			return false;
+		});
+		$('#signUpTable input').keypress(function (event) {
+			if (event.keyCode == 13) {
+				$('#btnSignUp').click();
+				return false;
+			}
+		});
+	});
+</script>
+

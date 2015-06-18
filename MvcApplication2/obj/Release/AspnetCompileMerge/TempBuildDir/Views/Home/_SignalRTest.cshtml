@@ -1,0 +1,51 @@
+﻿@model MvcApplication2.Models.HomeModel
+<h2>* SignalR Test *</h2>
+<a id="hideSignalRTest" class="boxHide" href="Index">
+	<img src='/Content/images/up.png' alt="" /><img src='/Content/images/down.png' style="display: none;" alt="" /></a>
+<div class="boxBody">
+	<input type="text" id="message" />
+	<input type="button" id="sendmessage" value="Send" />&nbsp;
+	<span id="signalRAckMsg" class="ackMsg" style="display: none;">Please Login First!</span>
+	<ul id="discussion">
+	</ul>
+</div>
+@if (Request.IsAuthenticated == true)
+{
+	<script src="/Scripts/jquery.signalR-1.2.1.js"></script>
+	<script src="/signalr/hubs"></script>
+	<script type="text/javascript">
+		$(function () {
+			var chat = $.connection.chatHub;
+			chat.client.broadcastMessage = function (name, message) {
+				var encodedName = $('<div />').text(name).html();
+				var encodedMsg = $('<div />').text(message).html();
+				$('#discussion').append('<li><strong>' + encodedName
+					+ '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
+			};
+			$('#message').focus();
+			$.connection.hub.start().done(function () {
+				$('#sendmessage').click(function () {
+					chat.server.send('@Model.userName', $('#message').val());
+					$('#message').val('').focus();
+				});
+			});
+			$('#message').keypress(function (event) {
+				if (event.keyCode == 13) {
+					$('#sendmessage').click();
+					return false;
+				}
+			});
+		});
+	</script>
+}
+else
+{
+	<script>
+		$(function () {
+			$('#sendmessage').click(function () {
+				$('#signalRAckMsg').show();
+			});
+		});
+	</script>
+}
+

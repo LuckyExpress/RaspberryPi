@@ -123,6 +123,21 @@
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>確認密碼</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>電郵地址</value>
+  </data>
+  <data name="ErrorDuplicatedName" xml:space="preserve">
+    <value>錯誤：名稱已存在！</value>
+  </data>
+  <data name="ErrorEmailAlreadyUsed" xml:space="preserve">
+    <value>錯誤：這電郵地址已被其他人使用！</value>
+  </data>
+  <data name="ErrorUnknown" xml:space="preserve">
+    <value>錯誤：未知的錯誤！</value>
+  </data>
   <data name="ForgotPassword" xml:space="preserve">
     <value>忘記了密碼</value>
   </data>
@@ -140,6 +155,12 @@
   </data>
   <data name="Password" xml:space="preserve">
     <value>密碼</value>
+  </data>
+  <data name="PasswordLengthError" xml:space="preserve">
+    <value>密碼錯誤：長度不能少於六位！</value>
+  </data>
+  <data name="PasswordMatchError" xml:space="preserve">
+    <value>密碼和確認密碼不相同!</value>
   </data>
   <data name="RememberMe" xml:space="preserve">
     <value>記錄在這電腦 ?</value>
@@ -161,6 +182,12 @@
   </data>
   <data name="SelectThemeColorFromList" xml:space="preserve">
     <value>請從下面的列表中選擇一個新的主題顏色</value>
+  </data>
+  <data name="SignUp" xml:space="preserve">
+    <value>註冊</value>
+  </data>
+  <data name="ThankYouForSigningUp1" xml:space="preserve">
+    <value>多謝註冊</value>
   </data>
   <data name="ThemeColor" xml:space="preserve">
     <value>主題顏色</value>

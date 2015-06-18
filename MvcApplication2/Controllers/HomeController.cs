@@ -65,6 +65,59 @@ namespace MvcApplication2.Controllers
 			return View("Index", model);
 		}
 
+		[HttpPost]
+		public ActionResult SignUp(string UserName, string UserEmail, string Password, string ConfirmPassword)
+		{
+			string msg = string.Empty;
+			bool n = true;
+			bool isApproved = true;
+
+			// debug
+			Membership.DeleteUser(UserName);
+
+			// Attempt to register the user
+			MembershipCreateStatus createStatus;
+			Membership.CreateUser(UserName, Password, UserEmail, null, null, isApproved, null, out createStatus);
+
+			if (createStatus == MembershipCreateStatus.Success)
+			{
+				// debug
+				// this is the default role for all signups (130417)
+				// Roles.AddUserToRole(UserName, MyRoles.UserAdmin);
+
+				FormsAuthentication.SetAuthCookie(UserName, false);
+				msg = Resources.Global.ThankYouForSigningUp1;
+			}
+			else
+			{
+				n = false;
+
+				switch (createStatus)
+				{
+					case MembershipCreateStatus.DuplicateUserName:
+						msg = Resources.Global.ErrorDuplicatedName;
+						break;
+
+					case MembershipCreateStatus.DuplicateEmail:
+						msg = Resources.Global.ErrorEmailAlreadyUsed;
+						break;
+
+					default:
+						msg = Resources.Global.ErrorUnknown;
+						break;
+				}
+			}
+
+			return Json(new { resultMsg = msg, result = n }, JsonRequestBehavior.AllowGet);
+		}
+
+		public ActionResult SqlServerTest(string sqlConnectionString, string sqlCommand)
+		{
+			string result = services.SqlServerTest(sqlConnectionString, sqlCommand);
+
+			return Json(new { result = result }, JsonRequestBehavior.AllowGet);
+		}
+
 		public ActionResult About()
 		{
 			string sql = "SELECT COUNT(*) FROM igpsite.Employee";
